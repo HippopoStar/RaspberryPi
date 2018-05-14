@@ -12,6 +12,6 @@ if [ ${#} -ne 1 ] ; then
 else
 	sudo /etc/init.d/gammu-smsd stop
 	gammu entersecuritycode PIN 1234
-	gammu --sendsms TEXT ${1} -text "RaspberryPi Reboot Successful"
+	gammu --sendsms TEXT ${1} -text "RaspberryPi Boot Successful"
 	sudo /etc/init.d/gammu-smsd start
 fi
