@@ -1,3 +1,0 @@
-crontab -e
-
-0 10 * * * cat /home/pi/gammu_message_[...].txt | gammu --sendsms TEXT <PHONE_NUMBER> -len 2 >> /home/pi/crontab_gammu_message.log 2>&1
