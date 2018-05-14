@@ -1,0 +1,74 @@
+sudo apt-get install gammu-smsd
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  lxkeymap python-cairo python-gobject python-gobject-2 python-gtk2
+  python-xklavier
+Use 'sudo apt autoremove' to remove them.
+The following additional packages will be installed:
+  libdbi1 libgsmsd8 libodbc1 libpq5
+Suggested packages:
+  gammu-doc libmyodbc odbc-postgresql tdsodbc unixodbc-bin
+The following NEW packages will be installed:
+  gammu-smsd libdbi1 libgsmsd8 libodbc1 libpq5
+0 upgraded, 5 newly installed, 0 to remove and 0 not upgraded.
+Need to get 592 kB of archives.
+After this operation, 1,571 kB of additional disk space will be used.
+Do you want to continue? [Y/n] Y
+Get:1 http://mirrors.ircam.fr/pub/raspbian/raspbian stretch/main armhf libdbi1 armhf 0.9.0-4+deb9u1 [27.1 kB]
+Get:2 http://mirrors.ircam.fr/pub/raspbian/raspbian stretch/main armhf libodbc1 armhf 2.3.4-1 [180 kB]
+Get:3 http://mirrors.ircam.fr/pub/raspbian/raspbian stretch/main armhf libpq5 armhf 9.6.7-0+deb9u1 [117 kB]
+Get:4 http://mirrors.ircam.fr/pub/raspbian/raspbian stretch/main armhf libgsmsd8 armhf 1.38.1-1 [120 kB]
+Get:5 http://mirrors.ircam.fr/pub/raspbian/raspbian stretch/main armhf gammu-smsd armhf 1.38.1-1 [148 kB]
+Fetched 592 kB in 53s (11.1 kB/s)   
+Selecting previously unselected package libdbi1:armhf.
+(Reading database ... 127403 files and directories currently installed.)
+Preparing to unpack .../libdbi1_0.9.0-4+deb9u1_armhf.deb ...
+Unpacking libdbi1:armhf (0.9.0-4+deb9u1) ...
+Selecting previously unselected package libodbc1:armhf.
+Preparing to unpack .../libodbc1_2.3.4-1_armhf.deb ...
+Unpacking libodbc1:armhf (2.3.4-1) ...
+Selecting previously unselected package libpq5:armhf.
+Preparing to unpack .../libpq5_9.6.7-0+deb9u1_armhf.deb ...
+Unpacking libpq5:armhf (9.6.7-0+deb9u1) ...
+Selecting previously unselected package libgsmsd8.
+Preparing to unpack .../libgsmsd8_1.38.1-1_armhf.deb ...
+Unpacking libgsmsd8 (1.38.1-1) ...
+Selecting previously unselected package gammu-smsd.
+Preparing to unpack .../gammu-smsd_1.38.1-1_armhf.deb ...
+Unpacking gammu-smsd (1.38.1-1) ...
+Setting up libdbi1:armhf (0.9.0-4+deb9u1) ...
+Setting up libodbc1:armhf (2.3.4-1) ...
+Setting up libpq5:armhf (9.6.7-0+deb9u1) ...
+Processing triggers for libc-bin (2.24-11+deb9u3) ...
+Processing triggers for systemd (232-25+deb9u2) ...
+Setting up libgsmsd8 (1.38.1-1) ...
+Processing triggers for man-db (2.7.6.1-2) ...
+Setting up gammu-smsd (1.38.1-1) ...
+
+Configuration file '/etc/gammu-smsdrc'
+ ==> File on system created by you or by a script.
+ ==> File also in package provided by package maintainer.
+   What would you like to do about it ?  Your options are:
+    Y or I  : install the package maintainer's version
+    N or O  : keep your currently-installed version
+      D     : show the differences between the versions
+      Z     : start a shell to examine the situation
+ The default action is to keep your current version.
+*** gammu-smsdrc (Y/I/N/O/D/Z) [default=N] ? D
+
+Configuration file '/etc/gammu-smsdrc'
+ ==> File on system created by you or by a script.
+ ==> File also in package provided by package maintainer.
+   What would you like to do about it ?  Your options are:
+    Y or I  : install the package maintainer's version
+    N or O  : keep your currently-installed version
+      D     : show the differences between the versions
+      Z     : start a shell to examine the situation
+ The default action is to keep your current version.
+*** gammu-smsdrc (Y/I/N/O/D/Z) [default=N] ? N    
+Adding user gammu to group dialout
+Created symlink /etc/systemd/system/multi-user.target.wants/gammu-smsd.service → /lib/systemd/system/gammu-smsd.service.
+Processing triggers for libc-bin (2.24-11+deb9u3) ...
+Processing triggers for systemd (232-25+deb9u2) ...

@@ -1,0 +1,9 @@
+Commandes:
+sudo apt-get update -y && sudo apt-get upgrade -y
+sudo apt-get install gammu-smsd
+sudo /etc/init.d/gammu-smsd restart
+
+Fichiers:
+cat /etc/gammu-smsdrc
+cat /var/spool/gammu/[...]
+
