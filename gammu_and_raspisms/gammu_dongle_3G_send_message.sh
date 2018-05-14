@@ -8,6 +8,6 @@ if [ ${#} -ne 2 ] ; then
 	usage
 else
 	sudo /etc/init.d/gammu-smsd stop
-	echo "${2}" | gammu --sendsms TEXT ${1}
+	echo "${2}" | sudo gammu --sendsms TEXT ${1}
 	sudo /etc/init.d/gammu-smsd start
 fi
