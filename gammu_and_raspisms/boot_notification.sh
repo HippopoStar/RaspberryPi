@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #Ajouter la ligne suivante au fichier /etc/rc.local :
-#	/home/pi/GitHub_RaspberryPi/gammu_and_raspisms/reboot_notification.sh <PHONE_NUMBER> > /home/pi/reboot_notification.log 2>&1
+#	/home/pi/GitHub_RaspberryPi/gammu_and_raspisms/boot_notification.sh <PHONE_NUMBER> > /home/pi/boot_notification.log 2>&1
 
 usage () {
 	echo "usage: ${0} <PHONE_NUMBER>"
