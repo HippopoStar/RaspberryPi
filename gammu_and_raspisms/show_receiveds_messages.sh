@@ -3,6 +3,11 @@
 #Ajouter la ligne suivante a la crontab :
 #	* * * * * /home/pi/GitHub_RaspberryPi/gammu_and_raspisms/show_receiveds_messages.sh /var/www/html/RaspiSMS/receiveds/ > /dev/null 2>&1
 
+#Dans son etat actuel, en plus de ne pas etre capable d'ouvrir une fenetre
+#dans un 'tty' graphique depuis l'exterieur,
+#le programme ne permet de traiter que le dernier SMS recu par a chaque
+#intervalle de 1 minute
+
 usage () {
 	echo "usage: ${0} <RECEPTION_FOLDER_ENDED_BY_/>"
 }
