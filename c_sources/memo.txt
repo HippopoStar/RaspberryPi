@@ -1,0 +1,12 @@
+#1
+#Sur une fenetre d'emulateur de terminal, taper la commande 'tty'
+#Dans un terminal different, taper la commande
+#	echo '<MESSAGE>' > <RETOUR_DE_LA_COMMANDE_PRECEDENTE>
+#Fonctionne egalement avec un terminal tty[1-6] ou l'on est log
+
+#2
+#Se logger sur un tty (par exemple /dev/tty2 en lancant 'CTRL'+'ALT'+'F2'
+#puis en renseignant ses identifiants)
+#Depuis un emulateur de terminal, lancer la commande 'sudo write pi tty2'
+#on peut ensuite ecrire a son voisin en mode interactif
+

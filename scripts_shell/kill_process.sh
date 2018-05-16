@@ -15,6 +15,6 @@ else
 		kill $(ps aux | grep "${1}" | grep -v 'kill_process.sh\|grep' | awk '{ print $2 }')
 		echo 'Tache(s) arretee(s)'
 	else
-		echo 'Operation \"kill\" annulee'
+		echo 'Operation "kill" annulee'
 	fi
 fi
