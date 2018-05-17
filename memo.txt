@@ -11,6 +11,7 @@
 #on peut ensuite ecrire a son voisin en mode interactif
 
 #apropos gtk
+#apropos session
 
 #man ptmx, pts (4)
 #	-> grantpt (3)
@@ -22,4 +23,8 @@
 
 #man getpt (3)
 #	-> posix_openpt (3)
+
+#MTA
+#	-> apropos mail
+#	-> exim4
 

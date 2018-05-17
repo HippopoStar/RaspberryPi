@@ -10,17 +10,38 @@
 
 usage () {
 	echo "usage: ${0} <RECEPTION_FOLDER_ENDED_BY_/>"
+	echo 'Without any given argument, programm will be launched'
+	echo 'with default argument /var/www/html/RaspiSMS/receiveds/'
 }
 
-if [ ${#} -ne 1 ] ; then
+#La fonction 'is_a_directory ()' renvoie 1 en l'absence de parametre
+#ou si l'argument passe en parametre et un repertoire termine par '/'
+is_a_directory () {
+	if test $# -ge 1 && ( test ! -d $1 || test "x`echo "$1" | awk '{ print /\/$/ }'`" != 'x1' ) ; then
+		echo '0'
+	else
+		echo '1'
+	fi
+}
+
+LS_OPTIONS='--format=long --almost-all --group-directories-first --color=never --indicator-style=slash --sort=time --reverse'
+
+WITNESS_PATH='/home/pi/sms_receiveds.witness'
+
+if [ ${#} -gt 1 ] || [ `is_a_directory ${1}` != '1' ] ; then
 	usage
 else
-	ls -l ${1} > /home/pi/sms_receiveds.witness.new
-	sudo chmod a+w /home/pi/sms_receiveds.witness.new
-	MESSAGE_ID=$(diff -N /home/pi/sms_receiveds.witness /home/pi/sms_receiveds.witness.new | tail -n 1 | awk '{ print $(NF) }')
+	if [ ${#} -eq 1 ] ; then
+		DIRECTORY="${1}"
+	else
+		DIRECTORY=/var/www/html/RaspiSMS/receiveds/
+	fi
+	ls $LS_OPTIONS $DIRECTORY > $WITNESS_PATH.new
+	sudo chmod a+w $WITNESS_PATH.new
+	MESSAGE_ID=$(diff -N $WITNESS_PATH $WITNESS_PATH.new | tail -n 1 | awk '{ print $(NF) }')
 	if [ 'x' != "x$MESSAGE_ID" ] ; then
-		cat ${1}$MESSAGE_ID | sudo write pi tty2
-		cp /home/pi/sms_receiveds.witness.new /home/pi/sms_receiveds.witness
-		sudo chmod a+w /home/pi/sms_receiveds.witness
+		cat $DIRECTORY$MESSAGE_ID | sudo write pi tty2
+		cp $WITNESS_PATH.new $WITNESS_PATH
+		sudo chmod a+w $WITNESS_PATH
 	fi
 fi
