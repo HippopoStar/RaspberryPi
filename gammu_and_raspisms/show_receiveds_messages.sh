@@ -16,9 +16,11 @@ if [ ${#} -ne 1 ] ; then
 	usage
 else
 	ls -l ${1} > /home/pi/sms_receiveds.witness.new
+	sudo chmod a+w /home/pi/sms_receiveds.witness.new
 	MESSAGE_ID=$(diff -N /home/pi/sms_receiveds.witness /home/pi/sms_receiveds.witness.new | tail -n 1 | awk '{ print $(NF) }')
 	if [ 'x' != "x$MESSAGE_ID" ] ; then
 		sh /home/pi/GitHub_RaspberryPi/scripts_shell/display_file_in_a_new_window.sh ${1}$MESSAGE_ID
 		cp /home/pi/sms_receiveds.witness.new /home/pi/sms_receiveds.witness
+		sudo chmod a+w /home/pi/sms_receiveds.witness
 	fi
 fi
