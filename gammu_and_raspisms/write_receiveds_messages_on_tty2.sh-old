@@ -38,14 +38,9 @@ else
 	fi
 	ls $LS_OPTIONS $DIRECTORY > $WITNESS_PATH.new
 	sudo chmod a+w $WITNESS_PATH.new
-	CURRENT_LINE='2'
-	TOTAL_LINES=`diff -N $WITNESS_PATH $WITNESS_PATH.new | wc -l`
-	while [ $CURRENT_LINE -le $TOTAL_LINES ] ; do
-		MESSAGE_ID=`diff -N $WITNESS_PATH $WITNESS_PATH.new | awk -v LINE=$CURRENT_LINE 'NR == LINE { print $NF }'`
+	MESSAGE_ID=$(diff -N $WITNESS_PATH $WITNESS_PATH.new | tail -n 1 | awk '{ print $(NF) }')
+	if [ 'x' != "x$MESSAGE_ID" ] ; then
 		cat $DIRECTORY$MESSAGE_ID | sudo write pi tty2
-		CURRENT_LINE=$((CURRENT_LINE + 1))
-	done
-	if [ $TOTAL_LINES -ge 2 ] ; then
 		cp $WITNESS_PATH.new $WITNESS_PATH
 		sudo chmod a+w $WITNESS_PATH
 	fi
