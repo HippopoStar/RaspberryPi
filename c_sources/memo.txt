@@ -10,6 +10,8 @@
 #Depuis un emulateur de terminal, lancer la commande 'sudo write pi tty2'
 #on peut ensuite ecrire a son voisin en mode interactif
 
+#apropos gtk
+
 #man ptmx, pts (4)
 #	-> grantpt (3)
 #	-> unlockpt (3)
