@@ -15,9 +15,9 @@ usage () {
 }
 
 #La fonction 'is_a_directory ()' renvoie 1 en l'absence de parametre
-#ou si l'argument passe en parametre et un repertoire termine par '/'
+#ou si l'argument passe en parametre est un repertoire termine par '/'
 is_a_directory () {
-	if test $# -ge 1 && ( test ! -d $1 || test "x`echo "$1" | awk '{ print /\/$/ }'`" != 'x1' ) ; then
+	if test ${#} -ge 1 && ( test ! -d ${1} || test "x`echo "${1}" | awk '{ print /\/$/ }'`" != 'x1' ) ; then
 		echo '0'
 	else
 		echo '1'
@@ -25,7 +25,6 @@ is_a_directory () {
 }
 
 LS_OPTIONS='--format=long --almost-all --group-directories-first --color=never --indicator-style=slash --sort=time --reverse'
-
 WITNESS_PATH='/home/pi/sms_receiveds.witness'
 
 if [ ${#} -gt 1 ] || [ `is_a_directory ${1}` != '1' ] ; then
@@ -36,17 +35,26 @@ else
 	else
 		DIRECTORY=/var/www/html/RaspiSMS/receiveds/
 	fi
-	ls $LS_OPTIONS $DIRECTORY > $WITNESS_PATH.new
-	sudo chmod a+w $WITNESS_PATH.new
-	CURRENT_LINE='2'
-	TOTAL_LINES=`diff -N $WITNESS_PATH $WITNESS_PATH.new | wc -l`
-	while [ $CURRENT_LINE -le $TOTAL_LINES ] ; do
-		MESSAGE_ID=`diff -N $WITNESS_PATH $WITNESS_PATH.new | awk -v LINE=$CURRENT_LINE 'NR == LINE { print $NF }'`
-		cat $DIRECTORY$MESSAGE_ID | sudo write pi tty2
-		CURRENT_LINE=$((CURRENT_LINE + 1))
-	done
-	if [ $TOTAL_LINES -ge 2 ] ; then
-		cp $WITNESS_PATH.new $WITNESS_PATH
-		sudo chmod a+w $WITNESS_PATH
+	if test "`ls ${LS_OPTIONS} ${DIRECTORY} | awk 'END { print $0 }'`" != "`cat ${WITNESS_PATH} | awk 'END { print $0 }'`" ; then
+		ls ${LS_OPTIONS} ${DIRECTORY} > ${WITNESS_PATH}.new
+		sudo chmod a+w ${WITNESS_PATH}.new
+		CURRENT_LINE=6	#car avec la commande ls -l, la premiere ligne
+				#correspond a la somme des poids des fichiers
+				#du dossier, valeur qui est alteree a l'ajout
+				#d'un fichier
+		TOTAL_LINES=`diff -N ${WITNESS_PATH} ${WITNESS_PATH}.new | wc -l`
+		while [ ${CURRENT_LINE} -le ${TOTAL_LINES} ] ; do
+			MESSAGE_ID=`diff -N ${WITNESS_PATH} ${WITNESS_PATH}.new | awk -v LINE=${CURRENT_LINE} 'NR == LINE { print $NF }'`
+			MAY_ERROR=`cat ${DIRECTORY}${MESSAGE_ID} | sudo write pi tty2 2>&1 | awk 'NR == 1 { print $0 }'`
+			#Une variable fait l'affaire pour assumer le role
+			#de MAY_ERROR, car le message d'erreur
+			#(a savoir "write: pi is not logged in on tty2")
+			#ne depasse pas une ligne
+			CURRENT_LINE=$((${CURRENT_LINE} + 1))
+		done
+		if test 'x' = "x${MAY_ERROR}" ; then
+			cp ${WITNESS_PATH}.new ${WITNESS_PATH}
+			sudo chmod a+w ${WITNESS_PATH}
+		fi
 	fi
 fi
